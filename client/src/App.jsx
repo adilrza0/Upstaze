@@ -102,7 +102,7 @@ function App() {
 
 
           {/* <Route path='/profile' element={<ProtectedRoute><Navbar/><Profile/></ProtectedRoute>} /> */}
-         
+          <Route path='*' />
           <Route path='/startup' element={<ProtectedRoute> <Navbar/><StartUp/></ProtectedRoute>} />
           <Route path='/startup/:id' element={<ProtectedRoute> <Navbar/><StartUPView/></ProtectedRoute>} />
           
@@ -125,6 +125,7 @@ function App() {
            
           </Route>
         </Routes>
+
         <Toaster richColors/>
       </BrowserRouter>
 
