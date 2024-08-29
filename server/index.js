@@ -9,16 +9,21 @@ const path =require('path')
 const app = express()
 
 const PORT=process.env.PORT ||4500
-const _dirname=path.dirname("");
-const buildpath= path.join(_dirname,"../client/dist")
-app.use(express.static(buildpath))
-app.use("*",cors())
+const buildpath = path.resolve(__dirname, "../client/dist"); // Absolute path to the dist directory
 
+// Serve static files from the dist directory
+app.use(express.static(buildpath));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// Enable CORS for all routes
+app.use(cors());
+
+// API routes
+app.use("/api", router);
+
+// Serve index.html for all non-API and non-static file routes
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(buildpath, "index.html")); // Absolute path to index.html
 });
-
 app.use(express.json())
 
   app.use("/api",router)
