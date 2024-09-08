@@ -1,13 +1,13 @@
 
 import { RedirectToSignIn, SignIn, SignInButton, SignUp, useAuth } from '@clerk/clerk-react';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './Pages/Home';
 import SideBar from './components/Custom/SideBar';
 import Dasboard from './Pages/Dasboard';
 import Navbar from './components/Custom/Navbar';
 import Profile from './Pages/Profile';
 import AddStartUp from './components/Custom/AddStartup';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setToken, setUser } from './redux/slices/authSlice';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
@@ -17,15 +17,19 @@ import StartUPView from './Pages/StartUpView';
 import StartUp from './Pages/StartUp';
 import AddStart from './components/Custom/AddStart';
 import { MatchMaking } from './Pages/MatchMaking';
+import { store } from './redux/store';
 
 // Higher-order component for protecting routes
 const ProtectedRoute = ({ children }) => {
+  
   const { isSignedIn } = useAuth();
+  
   
 
   if (!isSignedIn) {
     return <RedirectToSignIn />;
   }
+  
 
   return children;
 };
@@ -57,7 +61,7 @@ function App() {
     
   const getUser=(token,id)=>{
     console.log(id)
-    axios.get(`http://localhost:3000/api/profile/${id}`,{headers:{Authorization:`Bearer ${token}`}})
+    axios.get(`http://localhost:4500/api/profile/${id}`,{headers:{Authorization:`Bearer ${token}`}})
     .then((res)=>{
       console.log(res)
       dispatch(setUser(res.data))

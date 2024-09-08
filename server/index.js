@@ -18,15 +18,15 @@ app.use(express.static(buildpath));
 app.use(cors());
 
 // API routes
+app.use(express.json())
 app.use("/api", router);
 
 // Serve index.html for all non-API and non-static file routes
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(buildpath, "index.html")); // Absolute path to index.html
 });
-app.use(express.json())
 
-  app.use("/api",router)
+
   
 
 app.listen(PORT, async()=>{

@@ -35,9 +35,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { token } = useSelector((store) => store.auth);
+  
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const handleOptionClick = (option) => {
@@ -50,6 +52,7 @@ export default function Profile() {
       console.log(option);
     }
   };
+  const navigate= useNavigate()
 
   const [selectedIndustries, setSelectedIndustries] = useState([]);
   const handleIndustrySelect = (option) => {
@@ -63,6 +66,10 @@ export default function Profile() {
   };
 
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const {user} =useSelector((state)=>state.auth)
+  if(user.userId){
+    navigate("/dashboard")
+  }
   const handleSkillsSelect = (option) => {
     if (selectedSkills.includes(option)) {
       setSelectedSkills(selectedSkills.filter((o) => o !== option));

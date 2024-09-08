@@ -3,17 +3,19 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useUser } from "@clerk/clerk-react"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 
 export default function Dashboard() {
   const {user:User} = useUser()
 
   const navigate = useNavigate()
   const {user} = useSelector((state)=>state.auth)
+  
+  
   console.log(user)
-  console.log(User)
+  
 
-  return (
+  return user.userId ? (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
         <section className="w-[70vw] p-8 m-4 border-y bg-[#cecece]">
@@ -112,7 +114,7 @@ export default function Dashboard() {
         </section>
       </main>
     </div>
-  )
+  ):<Navigate to="/profile"/>
 }
 
 function BriefcaseIcon(props) {
