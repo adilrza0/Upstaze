@@ -1,26 +1,29 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useUser } from "@clerk/clerk-react"
+import { useAuth, useUser } from "@clerk/clerk-react"
 import { useSelector } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom"
 
 export default function Dashboard() {
   const {user:User} = useUser()
-
+  const {isSignedIn} = useAuth()
   const navigate = useNavigate()
   const {user} = useSelector((state)=>state.auth)
   
   
+  if(!user.userId&& isSignedIn){
+    navigate("/profile")
+  }
   console.log(user)
   
 
-  return user.userId ? (
-    <div className="flex flex-col min-h-dvh">
+  return (
+    <div className="flex flex-col min-h-dvh ">
       <main className="flex-1">
-        <section className="w-[70vw] p-8 m-4 border-y bg-[#cecece]">
+        {User&&<section className="w-[70vw] rounded-lg p-4 m-4 border-y bg-primary/30">
           <h1 className="text-2xl">Hey {User?.firstName}, to get the best out of UpStaze, you should perform these actions.</h1>
-        </section>
+        </section>}
         <section className="w-full py-4 md:py-6 lg:py-8">
             <h1 className="text-3xl p-6">You have an Idea for a project ?</h1>
           <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 md:px-6">
@@ -114,7 +117,7 @@ export default function Dashboard() {
         </section>
       </main>
     </div>
-  ):<Navigate to="/profile"/>
+  )
 }
 
 function BriefcaseIcon(props) {

@@ -19,6 +19,7 @@ app.use(cors());
 
 // API routes
 app.use(express.json())
+
 app.use("/api", router);
 
 // Serve index.html for all non-API and non-static file routes

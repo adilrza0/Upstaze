@@ -67,9 +67,9 @@ export default function Profile() {
 
   const [selectedSkills, setSelectedSkills] = useState([]);
   const {user} =useSelector((state)=>state.auth)
-  if(user.userId){
-    navigate("/dashboard")
-  }
+  // if(user.userId){
+  //   navigate("/dashboard")
+  // }
   const handleSkillsSelect = (option) => {
     if (selectedSkills.includes(option)) {
       setSelectedSkills(selectedSkills.filter((o) => o !== option));

@@ -13,10 +13,10 @@ export default function Navbar() {
     const navigate = useNavigate()
     const {isSignedIn}=useUser()
   return (
-    <header className=" sticky mb-4 top-0 z-20 w-full bg-accent">
+    <header className=" sticky  top-0 z-20 w-full bg-foreground text-white/70 ">
       <div className="container flex flex-col gap-4 px-4 py-3 md:flex-row md:items-center md:justify-between md:py-4 lg:px-6">
         <div className="flex items-center justify-between">
-          <Link href="#" className="flex items-center gap-2" >
+          <Link href="#" className="flex items-center gap-2 rounded-lg p-[4px] bg-background" >
             {/* <MountainIcon className="h-6 w-6 text-[#007bff]" />
             <span className="font-semibold text-[#343a40]">Acme Inc</span> */}
             <img className="w-[10vw]" src={logo} alt="" />
@@ -25,13 +25,13 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <MenuIcon className="h-6 w-6 text-[#6c757d]" />
+                  <MenuIcon className="h-6 w-6 " />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
-                  <Link href="#" className="flex items-center gap-2 text-[#495057]" >
+                  <Link href="#" className="flex items-center gap-2 " >
                     <Avatar className="h-6 w-6">
                       <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
                       <AvatarFallback>CN</AvatarFallback>
@@ -40,19 +40,19 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="#" className="flex items-center gap-2 text-[#495057]" >
+                  <Link href="#" className="flex items-center gap-2 " >
                     <UsersIcon className="h-4 w-4" />
                     <span>Friend Request</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="#" className="flex items-center gap-2 text-[#495057]" >
+                  <Link href="#" className="flex items-center gap-2 " >
                     <BellIcon className="h-4 w-4" />
                     <span>Notification</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="#" className="flex items-center gap-2 text-[#495057]" >
+                  <Link href="#" className="flex items-center gap-2 " >
                     <MailIcon className="h-4 w-4" />
                     <span>Messages</span>
                   </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
             </DropdownMenu>
           </div>
         </div>
-        <nav className="hidden md:flex items-center gap-6 text-[#495057]">
+        <nav className="hidden md:flex items-center gap-6 ">
           <Link href="#" className="font-medium hover:underline" >
             Founders
           </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
             Supporters
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-secondary-foreground hover:text-primary" >
+            <Link href="#" className=" hover:text-primary" >
               {/* <Avatar className="h-5 w-5">
                 <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
@@ -83,22 +83,22 @@ export default function Navbar() {
               {isSignedIn && <div onClick={()=>navigate("/dashboard")}><UserButton /></div> }
               <span className="sr-only">Profile</span>
             </Link>
-            <Link href="#" className="text-secondary-foreground hover:text-primary" >
+            <Link href="#" className=" hover:text-primary" >
               <UsersIcon className="h-5 w-5" />
               <span className="sr-only">Friend Request</span>
             </Link>
-            <Link href="#" className="text-secondary-foreground hover:text-primary" >
+            <Link href="#" className=" hover:text-primary" >
               <BellIcon className="h-5 w-5" />
               <span className="sr-only">Notification</span>
             </Link>
-            <Link href="#" className="text-secondary-foreground hover:text-primary" >
+            <Link href="#" className=" hover:text-primary" >
               <MailIcon className="h-5 w-5" />
               <span className="sr-only">Messages</span>
             </Link>
           </div>
         </nav>
       </div>
-      <div className="container flex items-center justify-center gap-6 px-4 py-3 md:justify-start lg:px-6 border-t border-[#dee2e6]">
+      {/* <div className="container flex items-center justify-center gap-6 px-4 py-3 md:justify-start lg:px-6 border-t border-[#dee2e6]">
         <Link href="#" className="font-medium hover:underline text-[#495057]" >
           Feed
         </Link>
@@ -111,7 +111,7 @@ export default function Navbar() {
         <Link href="#" className="font-medium hover:underline text-[#495057]" >
           Deck Pitch
         </Link>
-      </div>
+      </div> */}
     </header>
   )
 }

@@ -1,41 +1,26 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { UserButton, useUser } from "@clerk/clerk-react";
+import { useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SideBar() {
   const location = useLocation();
+  const { isSignedIn } = useAuth();
   const { user } = useUser();
 
- 
-
   return (
-    <aside className=" inset-y-0 left-0 z-10 flex w-16 flex-col border-r bg-background sm:w-64">
-      <div className="flex flex-col items-center justify-between space-y-4 px-4 py-6 sm:py-10">
-        <Link href="#" className="flex items-center justify-center">
-          <div className="invisible"><UserButton  /></div>
-          <img className="rounded-[50%] lg:w-[8vw] sm:w-[5vw]" src={user?.imageUrl} alt="" />
-          
-        </Link>
-        <div className="flex flex-col items-center space-y-2">
-          <div className="text-sm font-medium">
-            {} {user.firstName} {user.lastName}
-          </div>
-          <div className="text-xs text-muted-foreground">
-            {user?.emailAddresses[0].emailAddress}
-          </div>
-        </div>
-      </div>
+    <aside className="   z-10 flex w-16 h-full flex-col  bg-foreground rounded-lg fixed top-0 left-0 sm:w-64">
+      
       <nav className="flex flex-1 flex-col space-y-1 px-4 py-6 sm:px-6 sm:py-10">
         <Link
           to="/dashboard"
           className={
             cn(
               location.pathname == "/dashboard"
-                ? "bg-primary text-primary-foreground"
-                : null
+                ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground "
+                : "hover:bg-accent hover:text-accent-foreground"
             ) +
-            " flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            " flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors "
           }
         >
           <LayoutDashboardIcon className="h-5 w-5" />
@@ -53,7 +38,7 @@ export default function SideBar() {
           }
         >
           <CircleUserIcon className="h-5 w-5" />
-          <span className="hidden sm:inline">Persons</span>
+          <span className="hidden sm:inline">Account Settings</span>
         </Link>
         <Link
           to="/my-startup"
@@ -69,13 +54,13 @@ export default function SideBar() {
           <RocketIcon className="h-5 w-5" />
           <span className="hidden sm:inline">Startups</span>
         </Link>
-        <Link
+        {/* <Link
           href="#"
           className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
         >
           <BriefcaseIcon className="h-5 w-5" />
           <span className="hidden sm:inline">Jobs</span>
-        </Link>
+        </Link> */}
         <Link
           to="/matchMaking"
           className={
@@ -106,6 +91,26 @@ export default function SideBar() {
           <span className="hidden sm:inline">Supporters</span>
         </Link>
       </nav>
+      {isSignedIn && (
+        <div className="flex flex-row  items-center justify-start space-y-4 px-4 py-6 sm:py-10">
+          <Link href="#" className="flex relative items-center justify-center">
+            <div className='absolute  opacity-0'><UserButton  /></div>
+            <img
+              className="rounded-[50%]  lg:w-[4vw] sm:w-[1vw]"
+              src={user?.imageUrl}
+              alt=""
+            />
+          </Link>
+          <div className="flex text-white/40  flex-col ml-[1vw]">
+            <span className="text-sm  font-medium">
+              {} {user?.firstName} {user?.lastName}
+            </span>
+            <div className="text-xs ">
+              {user?.emailAddresses[0].emailAddress}
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }

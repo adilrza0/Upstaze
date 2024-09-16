@@ -12,7 +12,7 @@ const StartupSchema = new mongoose.Schema({
     foundingDate: { type: Date, default: null },
   },
   industryAndMarket: {
-    industry: { type: String, default: '' },
+    industry: { type: Array, default: '' },
     marketSegment: { type: String, default: '' },
     targetAudience: { type: String, default: '' },
   },
