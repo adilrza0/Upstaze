@@ -1,23 +1,23 @@
-import { useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 
-export default function WriteBlog({setContent}) {
+ const WriteBlog=forwardRef((prop,ref) => {
    
   const editorRef = useRef(null);
-  const htmlContent = '<h1>This is a heading rendered from HTML</h1><p>This is a paragraph.</p>';
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+ 
+  useImperativeHandle(ref, () => ({
+    getValue: () => {
+      return {content:editorRef.current.getContent(), image:editorRef.current.dom.select('img')[0]?.currentSrc}
     }
-  };
-  //editorRef.current = editor
+  }));
+ 
   return (
     <div >
       <Editor
         apiKey='yfxzagt4r4he3i832noecd2k5bm98unndhdwffl5sdjfl9jk'
-        onInit={(_evt, editor) => setContent(editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        onInit={(_evt, editor) => editorRef.current = editor}
+        initialValue=""
         init={{
           height: 500,
           menubar: false,
@@ -33,9 +33,11 @@ export default function WriteBlog({setContent}) {
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      <button onClick={log}>Log editor content</button>
-      <div dangerouslySetInnerHTML={{ __html: (htmlContent+ editorRef?.current?.getContent()) }} />
+      
+    
       
     </div>
   );
-}
+})
+
+export default WriteBlog

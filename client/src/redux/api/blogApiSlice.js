@@ -10,8 +10,15 @@ const blogAPiSlice = apiSlice.injectEndpoints({
                 body:data,
                 method:"POST"
             })
+        }),
+        getBlogs:builder.query({
+            query:()=>({
+                url:`${BLOG_URL}`,
+                method:"GET"
+            })
         })
     })
+    
 })
 
-export const {useAddBlogMutation} = blogAPiSlice
+export const {useAddBlogMutation, useGetBlogsQuery} = blogAPiSlice

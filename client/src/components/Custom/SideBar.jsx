@@ -77,7 +77,7 @@ export default function SideBar() {
         </Link>
 
         <Link
-          href="#"
+         to='/blogs'
           className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
         >
           <AcitvityIcon className="h-5 w-5" />

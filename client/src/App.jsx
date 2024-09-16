@@ -16,6 +16,7 @@ import Profile from './Pages/Profile';
 import StartUp from './Pages/StartUp';
 import StartUPView from './Pages/StartUpView';
 import { setToken, setUser } from './redux/slices/authSlice';
+import Blogs from './Pages/Blogs';
 
 
 // Higher-order component for protecting routes
@@ -125,6 +126,7 @@ function App() {
             <Route path='/profile' element={isSignedIn?<Profile/>:<AuthRequired/>} />
             <Route path='/matchMaking' element={isSignedIn?<MatchMaking/>:<AuthRequired/>} />
             <Route path='/add-startup' element={isSignedIn?<AddStart/>:<AuthRequired/>} />
+            <Route path='/blogs' element={<Blogs/>}/>
            
           </Route>
         </Routes>

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAddBlogMutation } from "@/redux/api/blogApiSlice";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 
@@ -15,18 +15,27 @@ import { toast } from "sonner";
 export default function AddBlogForm({setVisible}) {
 
   const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
   const [date,setDate] = useState('');
   const [readTime,setReadTime] = useState("");
   const [excerpt,setExcerpt] = useState("")
+  const childRef = useRef(null);
+  const [content,setContent]=useState({})
 
 
-  const [addblog,{isLoading}] = useAddBlogMutation()
-  const handleAddBlog =  (e) => {
+
+  const [addblog,{isLoading,error}] = useAddBlogMutation()
+  const handleAddBlog =  async (e) => {
     e.preventDefault()
-    console.log(title,content,date,readTime,excerpt)
+    if (childRef.current) {
+      setContent(childRef.current.getValue())
+      
+    }
+     console.log({title,...content,date,readTime,excerpt})
     try {
-       //await addblog({title,readTime,date,excerpt,content:content?.getContent(), image:content?.dom.select('img'[0].currentSrc)})
+      // console.log(addblog)
+      const result = await addblog({title,readTime,date,excerpt, ...content})
+      toast.success(result?.data?.message)
+      console.log(result,error)
     } catch (error) {
       console.log(error);
       toast.error(error.message)
@@ -35,7 +44,7 @@ export default function AddBlogForm({setVisible}) {
     if (title && content) {
       // setBlogs([...blogs, { title, content }])
       setTitle('')
-      setContent('')
+      
     }
 
   }
@@ -82,10 +91,10 @@ export default function AddBlogForm({setVisible}) {
               id="content"
              
               value={date}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
-          <WriteBlog setContent={setContent}/>
+          <WriteBlog  ref={childRef}/>
           
         </div>
       </form>

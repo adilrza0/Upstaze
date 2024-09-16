@@ -85,7 +85,7 @@ export default function AdminDashboard() {
       case "User Management":
         return <UserManagement />;
       case "Content Management":
-        return <ContentManagement />;
+        return <ContentManagement admin={true} />;
       case "Services Marketplace":
         return <ServicesMarketplace />;
       case "Financial Management":
